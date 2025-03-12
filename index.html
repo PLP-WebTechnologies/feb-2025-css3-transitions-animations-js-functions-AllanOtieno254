@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS3 Animations & LocalStorage</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+        .box {
+            width: 100px;
+            height: 100px;
+            background-color: blue;
+            margin: 20px auto;
+            transition: transform 0.5s ease-in-out;
+        }
+        .box.animate {
+            transform: scale(1.5);
+            background-color: red;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .message {
+            opacity: 0;
+            animation: fadeIn 1s forwards;
+        }
+    </style>
+</head>
+<body>
+    <h1>CSS3 Animations & JavaScript LocalStorage</h1>
+    <button onclick="toggleAnimation()">Animate Box</button>
+    <div class="box" id="animatedBox"></div>
+    <button onclick="savePreference()">Save Preference</button>
+    <p class="message" id="message">Welcome back!</p>
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            if (localStorage.getItem("animationState") === "true") {
+                document.getElementById("animatedBox").classList.add("animate");
+            }
+        });
+        
+        function toggleAnimation() {
+            let box = document.getElementById("animatedBox");
+            box.classList.toggle("animate");
+            localStorage.setItem("animationState", box.classList.contains("animate"));
+        }
+        
+        function savePreference() {
+            localStorage.setItem("welcomeMessage", "true");
+            document.getElementById("message").style.opacity = "1";
+        }
+    </script>
+</body>
+</html>
